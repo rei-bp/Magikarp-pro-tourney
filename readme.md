@@ -9,14 +9,14 @@ Imagine a bass pro fishing tournament but with magikarp instead of bass! You are
 
 Design of the game would be a lake background where you have free movement in a boat. Splashes would occur randomly where you would then move towards the splash and be able to catch a magikarp given a certain time frame. You continue to fish to collect the biggest bag of magikarp until your boat runs out of gas. From there you will be placed on a leaderboard to see how you compare/place for a trophy.
 
-Tech stacks used - HTML canvas/javascript/vanilla CSS implementation // not set in stone
+Tech stacks used - HTML5/javascript/vanilla CSS implementation // not set in stone
 
 **MVP**
 
 * render the lake background, boat, splashes
 * movement for boat (WASD)
 * render splashes to occur randomly in lake
-* randomize weight
+* randomize weight of fish
 * trigger catch event: press button near splash to catch fish
 * record 5 fish data
 
