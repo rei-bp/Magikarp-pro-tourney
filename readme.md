@@ -15,7 +15,6 @@ Tech stacks used - HTML canvas/javascript/vanilla CSS implementation // not set 
 
 * render the lake background, boat, splashes
 * movement for boat (WASD)
-* give boat finite movement time (gas)
 * render splashes to occur randomly in lake
 * randomize weight
 * trigger catch event: press button near splash to catch fish
@@ -28,6 +27,8 @@ Tech stacks used - HTML canvas/javascript/vanilla CSS implementation // not set 
 
 **STRETCH GOALS**
 
+* save user bag data and record in leaderboard
+* give boat finite movement time (gas)
 * animate catching fish
 * catch cut scene with weight
 * provide other catchable objects (different fish, trash)
