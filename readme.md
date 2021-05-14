@@ -1,15 +1,18 @@
 #Magikarp Pro Tourney#
 
 
-**ELEVATOR PITCH//**
+**ELEVATOR PITCH**
+
 Imagine a bass pro fishing tournament but with magikarp instead of bass! You are competing to catch the biggest bag, see if you can top the leaderboards by catching the heaviest 5 magikarps from your run!
 
-**GAMEPLAY//** 
+**GAMEPLAY** 
+
 Design of the game would be a lake background where you have free movement in a boat. Splashes would occur randomly where you would then move towards the splash and be able to catch a magikarp given a certain time frame. You continue to fish to collect the biggest bag of magikarp until your boat runs out of gas. From there you will be placed on a leaderboard to see how you compare/place for a trophy.
 
 vanilla CSS & javascript implementation // try out phaser 3
 
-**MVP//**
+**MVP**
+
 * render the lake background, boat, splashes
 * movement for boat (WASD)
 * give boat finite movement time (gas)
@@ -23,7 +26,8 @@ vanilla CSS & javascript implementation // try out phaser 3
 
 ![MPT wirefram](/karpwireframe.png)
 
-**STRETCH GOALS//**
+**STRETCH GOALS**
+
 * animate catching fish
 * catch cut scene with weight
 * provide other catchable objects (different fish, trash)
