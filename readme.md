@@ -3,7 +3,7 @@
 
 **ELEVATOR PITCH**
 
-Imagine a bass pro fishing tournament but with magikarp instead of bass! You are competing to catch the biggest bag, see if you can top the leaderboards by catching the heaviest 5 magikarps from your run!
+Imagine a bass pro fishing tournament but with magikarp instead of bass! You are competing to catch the biggest bag, see if you can top the leaderboards by catching the heaviest 5 magikarps from your run.
 
 **GAMEPLAY** 
 
