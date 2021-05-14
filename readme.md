@@ -19,14 +19,14 @@ Tech stacks used - HTML canvas/javascript/vanilla CSS implementation // not set 
 * randomize weight
 * trigger catch event: press button near splash to catch fish
 * record 5 fish data
-* rank fish bag against leaderboard
-* save user bag data and record in leaderboard
-* play again button
 
 ![MPT wirefram](/karpwireframe.png)
 
 **STRETCH GOALS**
 
+* rank fish bag against leaderboard
+* save user bag data and record in leaderboard
+* play again button
 * save user bag data and record in leaderboard
 * give boat finite movement time (gas)
 * animate catching fish
