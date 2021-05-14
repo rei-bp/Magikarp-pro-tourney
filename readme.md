@@ -1,4 +1,4 @@
-#Magikarp Pro Tourney#
+#Magikarp Pro Tourney
 
 
 **ELEVATOR PITCH**
