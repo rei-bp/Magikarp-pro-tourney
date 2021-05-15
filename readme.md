@@ -1,5 +1,8 @@
+#Magikarp Pro Tourney#
+
+
+
 ELEVATOR PITCH
-Magikarp pro tourney!
 You are competing to catch the biggest bag! See if you can top the leaderboards by catching the heaviest 5 magikarps from your run!
 
 GAMEPLAY
@@ -18,6 +21,7 @@ record 5 fish data
 rank fish bag against leaderboard
 save user bag data and record in leaderboard
 play again button
+
 
 
 STRETCH GOALS
