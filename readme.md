@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #Magikarp Pro Tourney
 
 
@@ -24,7 +23,6 @@ vanilla CSS & javascript implementation // try out phaser 3
 
 
 *STRETCH GOALS*
-=======
 # Magikarp Pro Tourney
 
 
@@ -55,7 +53,6 @@ Tech stacks used - HTML5/javascript/vanilla CSS implementation // not set in sto
 * save user bag data and record in leaderboard
 * play again button
 * save user bag data and record in leaderboard
->>>>>>> 2d8dba72ffda0192d0692e43cb7bbfcab9a878af
 * give boat finite movement time (gas)
 * animate catching fish
 * catch cut scene with weight
