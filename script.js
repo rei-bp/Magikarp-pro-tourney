@@ -3,8 +3,8 @@ let canvas = document.getElementById('myCanvas')
 let ctx = canvas.getContext('2d')
 let x = canvas.width/2
 let y = canvas.height-30
-let splashX = 0
-let splashY = 0
+let splashX = 10
+let splashY = 10
 let splashRadius = 5
 let rectRadius = 10
 let rightPressed = false
@@ -44,13 +44,27 @@ function keyUpHandler(e) {
     }
 }
 
-function boat () {
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
-    ctx.beginPath()
-    ctx.rect(x, y, rectRadius, 10)
-    ctx.fillStyle = "#ff000"
-    ctx.fill()
-    ctx.closePath()
+
+// function Splash () {
+//     ctx.beginPath()
+//     ctx.arc( splashX, splashY, splashRadius, 0, Math.PI*2)
+//     ctx.fillStyle = "#00FFFF"
+//     ctx.fill()
+//     ctx.closePath()
+// }
+
+
+
+function Boat (x, y, radius) {
+    this.x = canvas.width/2;
+    this.y = canvas.height-30;
+    this.radius = 10
+    // ctx.clearRect(0, 0, canvas.width, canvas.height)
+    // ctx.beginPath()
+    // ctx.rect(x, y, rectRadius, 10)
+    // ctx.fillStyle = "#ff000"
+    // ctx.fill()
+    // ctx.closePath()
     if(rightPressed) {
         x += 1
         } else if (x > canvas.width) {
@@ -75,6 +89,7 @@ function boat () {
 
 function draw() {
     boat ()
+    splash ()
     }
     
     
