@@ -6,41 +6,45 @@ let y = canvas.height-30
 let splashX = 10
 let splashY = 10
 let splashRadius = 5
-let rectRadius = 10
-let rightPressed = false
-let leftPressed = false
-let upPressed = false
-let downPressed = false
+let boat;
+// let rectRadius = 10
+// let rightPressed = false
+// let leftPressed = false
+// let upPressed = false
+// let downPressed = false
 
 document.addEventListener("keydown", keyDownHandler, false)
 document.addEventListener("keyup", keyUpHandler, false)
 function keyDownHandler(e) {
     if(e.key == "ArrowRight") {
-        rightPressed = true 
+        boat.rightPressed = true
+        if (boat.x > canvas.width) {
+        boat.rightPressed = false
+        }
     }
     else if(e.key == "ArrowLeft" && x > 0) {
-        leftPressed = true
+        boat.leftPressed = true
     }
     else if(e.key == "ArrowUp" && y > 0) {
-        upPressed = true
+        boat.upPressed = true
     }
     else if(e.key == "ArrowDown" && y < canvas.height) {
-        downPressed = true
+        boat.downPressed = true
     }
 }
 
 function keyUpHandler(e) {
     if(e.key == "ArrowRight") {
-         rightPressed = false
+        boat.rightPressed = false
     }
     else if(e.key == "ArrowLeft") {
-        leftPressed = false
+        boat.leftPressed = false
     }
     else if(e.key == "ArrowUp") {
-        upPressed = false
+        boat.upPressed = false
     }
     else if(e.key == "ArrowDown") {
-        downPressed = false
+        boat.downPressed = false
     }
 }
 
@@ -54,47 +58,62 @@ function keyUpHandler(e) {
 // }
 
 
-
-function Boat (x, y, radius) {
+function Boat (x, y, rectRadius ) {
+    this.rectRadius = rectRadius
     this.x = canvas.width/2;
     this.y = canvas.height-30;
-    this.radius = 10
-    // ctx.clearRect(0, 0, canvas.width, canvas.height)
-    // ctx.beginPath()
-    // ctx.rect(x, y, rectRadius, 10)
-    // ctx.fillStyle = "#ff000"
-    // ctx.fill()
-    // ctx.closePath()
-    if(rightPressed) {
-        x += 1
-        } else if (x > canvas.width) {
-            x = 0
-    } else if(leftPressed) {
-        x -= 1
-        } else if (x < 0) {
-            x = canvas.width
+    this.rightPressed = false
+    this.leftPressed = false
+    this.upPressed = false
+    this.downPressed = false
+    this.draw = function() {
+        // ctx.clearRect(0, 0, canvas.width, canvas.height)
+        ctx.beginPath()
+        ctx.rect(this.x, this.y, this.rectRadius, 10)
+        ctx.fillStyle = "#ff000"
+        ctx.fill()
+        ctx.closePath()
     }
-    else if(upPressed) {
-        y -= 1
-        } else if ( y < 0) {
-            y = canvas.height
-    }
-    else if(downPressed) {
-        y += 1
-        } else if ( y > canvas.height) {
-            y = 0            
+    this.movementSpeed = function() {
+        if(this.rightPressed) {
+            this.x += 1
+        } else if (this.x > canvas.width) {
+            this.x = 0
+        } else if(this.leftPressed) {
+            this.x -= 1
+        } else if (this.x < 0) {
+            this.x = canvas.width
         }
+        else if(this.upPressed) {
+            this.y -= 1
+        } else if ( this.y < 0) {
+            this.y = canvas.height
+        }
+        else if(this.downPressed) {
+            this.y += 1
+        } else if ( this.y > canvas.height) {
+            this.y = 0            
+        }
+    }
+    this.update = function () {
+        this.draw();
+        this.movementSpeed();    
+    }
 }
 
 
-function draw() {
-    boat ()
-    splash ()
-    }
-    
-    
+function init() {
+    let rectRadius = 10
+    boat = new Boat(x,y,rectRadius)
+    // splash ()
+}
 
-setInterval(draw, 10)
+const animate = setInterval(function(){
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    boat.update();
+}, 10)
+
+init();
 
 // document.addEventListener('DOMContentLoaded', function () {
     
