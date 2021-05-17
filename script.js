@@ -60,16 +60,16 @@ function keyUpHandler(e) {
 
 function Splash () {
     this.splashRadius = 5
-    this.x = math.floor(math.random()*995)
-    this.y = math.floor(math.random()*795)
+    this.x = 30;
+    this.y = 30;
     this.draw = function () {
         ctx.beginPath()
-        ctx.arc(splashX,splashY, splashRadius, Math.PI*2)
-        ctx.fillStyle = '#00FFFF'
-        ctx.fill(splashX,splashY, splashRadius, Math.PI*2)
+        ctx.arc( this.x, this.y, this.splashRadius, 0, Math.PI*2)
+        ctx.strokeStyle = "#000080"
+        ctx.closePath()
     }
     this.update = function () {
-        this.draw()
+        this.draw();
     }
 }
 
@@ -118,14 +118,18 @@ function Boat () {
 
 function init() {
     boat = new Boat()
-    splash = new splash()
-    // splash ()
+    splash = new Splash()
 }
 
 const animate = setInterval(function(){
     ctx.clearRect(0, 0, canvas.width, canvas.height)
-    boat.update();
+    boat.update()
+    splash.update()
 }, 10)
+
+// const splashAnimate = setInterval(function(){
+//     splash.update()
+// }, 5000)
 
 init();
 
