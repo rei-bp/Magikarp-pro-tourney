@@ -1,28 +1,4 @@
-#Magikarp Pro Tourney
 
-
-
-*ELEVATOR PITCH*
-You are competing to catch the biggest bag! See if you can top the leaderboards by catching the heaviest 5 magikarps from your run!
-
-*GAMEPLAY*
-Design of the game would be a lake background where you have free movement in a boat. Splashes would occur randomly where you would then move towards the splash and be able to catch a magikarp given a certain time frame. You continue to fish to collect the biggest bag of magikarp until your boat runs out of gas. From there you will be placed on a leaderboard to see how you compare/place for a trophy.
-
-vanilla CSS & javascript implementation // try out phaser 3
-
-*MVP*
-* render the lake background, boat, splashes
-* movement for boat (WASD)
-* render splashes to occur randomly in lake
-* randomize weight
-* trigger catch event: press button near splash to catch fish
-* record 5 fish data
-* rank fish bag against leaderboard
-* save user bag data and record in leaderboard
-* play again button
-
-
-*STRETCH GOALS*
 # Magikarp Pro Tourney
 
 
@@ -45,7 +21,7 @@ Tech stacks used - HTML5/javascript/vanilla CSS implementation // not set in sto
 * trigger catch event: press button near splash to catch fish
 * record 5 fish data
 
-![MPT wirefram](/karpwireframe.png)
+![MPT wireframe](/karpwireframe.png)
 
 **STRETCH GOALS**
 
