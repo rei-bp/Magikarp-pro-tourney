@@ -1,12 +1,13 @@
 //CANVAS ATTEMPT
 let canvas = document.getElementById('myCanvas')
 let ctx = canvas.getContext('2d')
-let x = canvas.width/2
-let y = canvas.height-30
-let splashX = 10
-let splashY = 10
-let splashRadius = 5
-let boat;
+// let x = canvas.width/2
+// let y = canvas.height-30
+// let splashX = 10
+// let splashY = 10
+// let splashRadius = 5
+let boat
+let splash
 // let rectRadius = 10
 // let rightPressed = false
 // let leftPressed = false
@@ -18,18 +19,27 @@ document.addEventListener("keyup", keyUpHandler, false)
 function keyDownHandler(e) {
     if(e.key == "ArrowRight") {
         boat.rightPressed = true
-        if (boat.x > canvas.width) {
-        boat.rightPressed = false
-        }
+            if (boat.x > canvas.width) {
+                boat.rightPressed = false
+            }
     }
-    else if(e.key == "ArrowLeft" && x > 0) {
+    else if(e.key == "ArrowLeft") {
         boat.leftPressed = true
-    }
-    else if(e.key == "ArrowUp" && y > 0) {
+            if (boat.x < 0) {
+                boat.leftPressed = false
+            }
+    }    
+    else if(e.key == "ArrowUp") {
         boat.upPressed = true
+            if (boat.y < 0) {
+                boat.upPressed = false
+            }
     }
-    else if(e.key == "ArrowDown" && y < canvas.height) {
+    else if(e.key == "ArrowDown") {
         boat.downPressed = true
+            if (boat.y > canvas.height) {
+                boat.downPressed = false
+            }
     }
 }
 
@@ -48,18 +58,23 @@ function keyUpHandler(e) {
     }
 }
 
+function Splash () {
+    this.splashRadius = 5
+    this.x = math.floor(math.random()*995)
+    this.y = math.floor(math.random()*795)
+    this.draw = function () {
+        ctx.beginPath()
+        ctx.arc(splashX,splashY, splashRadius, Math.PI*2)
+        ctx.fillStyle = '#00FFFF'
+        ctx.fill(splashX,splashY, splashRadius, Math.PI*2)
+    }
+    this.update = function () {
+        this.draw()
+    }
+}
 
-// function Splash () {
-//     ctx.beginPath()
-//     ctx.arc( splashX, splashY, splashRadius, 0, Math.PI*2)
-//     ctx.fillStyle = "#00FFFF"
-//     ctx.fill()
-//     ctx.closePath()
-// }
-
-
-function Boat (x, y, rectRadius ) {
-    this.rectRadius = rectRadius
+function Boat () {
+    this.rectRadius = 10
     this.x = canvas.width/2;
     this.y = canvas.height-30;
     this.rightPressed = false
@@ -67,7 +82,6 @@ function Boat (x, y, rectRadius ) {
     this.upPressed = false
     this.downPressed = false
     this.draw = function() {
-        // ctx.clearRect(0, 0, canvas.width, canvas.height)
         ctx.beginPath()
         ctx.rect(this.x, this.y, this.rectRadius, 10)
         ctx.fillStyle = "#ff000"
@@ -77,21 +91,21 @@ function Boat (x, y, rectRadius ) {
     this.movementSpeed = function() {
         if(this.rightPressed) {
             this.x += 1
-        } else if (this.x > canvas.width) {
+        } if (this.x > canvas.width) {
             this.x = 0
-        } else if(this.leftPressed) {
+        } if(this.leftPressed) {
             this.x -= 1
-        } else if (this.x < 0) {
+        } if (this.x < 0) {
             this.x = canvas.width
         }
-        else if(this.upPressed) {
+        if(this.upPressed) {
             this.y -= 1
-        } else if ( this.y < 0) {
+        } if ( this.y < 0) {
             this.y = canvas.height
         }
-        else if(this.downPressed) {
+        if(this.downPressed) {
             this.y += 1
-        } else if ( this.y > canvas.height) {
+        } if ( this.y > canvas.height) {
             this.y = 0            
         }
     }
@@ -103,8 +117,8 @@ function Boat (x, y, rectRadius ) {
 
 
 function init() {
-    let rectRadius = 10
-    boat = new Boat(x,y,rectRadius)
+    boat = new Boat()
+    splash = new splash()
     // splash ()
 }
 
