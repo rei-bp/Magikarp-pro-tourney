@@ -60,12 +60,13 @@ function keyUpHandler(e) {
 
 function Splash () {
     this.splashRadius = 5
-    this.x = 30;
-    this.y = 30;
+    this.x =Math.floor(Math.random()*(canvas.width- this.splashRadius));
+    this.y = Math.floor(Math.random()*(canvas.height-this.splashRadius));
     this.draw = function () {
         ctx.beginPath()
         ctx.arc( this.x, this.y, this.splashRadius, 0, Math.PI*2)
-        ctx.strokeStyle = "#000080"
+        ctx.fillStyle = "#000080"
+        ctx.fill()
         ctx.closePath()
     }
     this.update = function () {
@@ -84,7 +85,7 @@ function Boat () {
     this.draw = function() {
         ctx.beginPath()
         ctx.rect(this.x, this.y, this.rectRadius, 10)
-        ctx.fillStyle = "#ff000"
+        ctx.fillStyle = "#ff0000"
         ctx.fill()
         ctx.closePath()
     }
