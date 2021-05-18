@@ -59,10 +59,12 @@ function keyUpHandler(e) {
 }
 
 function Splash () {
-    this.splashRadius = 5
-    this.x =Math.floor(Math.random()*(canvas.width- this.splashRadius));
-    this.y = Math.floor(Math.random()*(canvas.height-this.splashRadius));
+    this.x = 30//Math.floor(Math.random()*(canvas.width- this.splashRadius))
+    this.y = 30//Math.floor(Math.random()*(canvas.height-this.splashRadius))
     this.draw = function () {
+        this.splashRadius = 5
+        // this.x = Math.floor(Math.random()*(canvas.width- this.splashRadius));
+        // this.y = Math.floor(Math.random()*(canvas.height-this.splashRadius));
         ctx.beginPath()
         ctx.arc( this.x, this.y, this.splashRadius, 0, Math.PI*2)
         ctx.fillStyle = "#000080"
@@ -128,9 +130,10 @@ const animate = setInterval(function(){
     splash.update()
 }, 10)
 
-// const splashAnimate = setInterval(function(){
-//     splash.update()
-// }, 5000)
+const splashAnimate = setInterval(function(){
+    splash.x = Math.floor(Math.random()*795)
+    splash.y = Math.floor(Math.random()*595)
+}, 5000)
 
 init();
 
