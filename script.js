@@ -9,7 +9,7 @@ let ctx = canvas.getContext('2d')
 let boat
 let splash
 let bag = []
-
+let space = false
 function randomWeight() {
     return Math.floor(Math.random()*(45-5)+5)
 }
@@ -52,6 +52,7 @@ function fishHandler () {
 
 document.addEventListener("keydown", keyDownHandler, false)
 document.addEventListener("keyup", keyUpHandler, false)
+
 function keyDownHandler(e) {
     if(e.key == "ArrowRight") {
         boat.rightPressed = true
@@ -76,6 +77,9 @@ function keyDownHandler(e) {
             if (boat.y > canvas.height) {
                 boat.downPressed = false
             }
+    }
+    else if (e.key == " ") {
+        space = true
     }
 }
 
@@ -169,9 +173,7 @@ const animate = setInterval(function(){
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     boat.update()
     splash.update()
-    if (getDistance(boat.x, boat.y, splash.x, splash.y) < boat.boatRadius + splash.splashRadius
-                    && event.code == "Space"
-    ) {
+    if (getDistance(boat.x, boat.y, splash.x, splash.y) < boat.boatRadius + splash.splashRadius && space === true) {
         boat.fishing = true
         fishHandler()
         // do something
