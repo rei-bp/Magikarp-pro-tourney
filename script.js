@@ -8,11 +8,16 @@ let ctx = canvas.getContext('2d')
 // let splashRadius = 5
 let boat
 let splash
-let fishData = [{
-    fishNumber: "",
-    fishWeight: "",
-    fishLength: ""},
-]
+let bag = []
+
+function randomWeight() {
+    return Math.floor(Math.random()*(45-5)+5)
+}
+
+function randomSplashGenerator () {
+    splash.x = Math.floor(Math.random()*795)
+    splash.y = Math.floor(Math.random()*595)
+}
 // let rectRadius = 10
 // let rightPressed = false
 // let leftPressed = false
@@ -26,22 +31,23 @@ let fishData = [{
 function getDistance(x1,y1,x2,y2) {
     let xDistance = x2 - x1;
     let yDistance = y2- y1;
-
     return Math.sqrt(Math.pow(xDistance, 2) + 
         Math.pow(yDistance,2)
     )
 }
-
-function fishHandler () {
-    boat.fishCaught++
-    fishData.push({
-        fishNumber == boat.fishCaught
-
-    })
-    
+function Fish (fishNumber, fishWeight) {
+    this.fishNumber = fishNumber
+    this.fishWeight = fishWeight
 }
-
-
+function fishHandler () {
+    if (boat.fishing === true) {
+        let caughtFish = new Fish(bag.length, randomWeight())
+        bag.push(caughtFish)
+        boat.fishing = false
+        randomSplashGenerator()
+        console.log(bag)
+    } 
+}  
 
 
 document.addEventListener("keydown", keyDownHandler, false)
@@ -117,7 +123,7 @@ function Boat () {
     this.downPressed = false
     this.boatRadius = 40
     this.fishing = false
-    this.fishCaught = 0 
+    this.fishCaught = 0
     this.draw = function() {
         ctx.beginPath()
         ctx.rect(this.x, this.y, this.rectRadius, 10)
@@ -163,20 +169,22 @@ const animate = setInterval(function(){
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     boat.update()
     splash.update()
-    if (getDistance(boat.x, boat.y, splash.x, splash.y) < boat.boatRadius + splash.splashRadius) {
+    if (getDistance(boat.x, boat.y, splash.x, splash.y) < boat.boatRadius + splash.splashRadius
+                    && event.code == "Space"
+    ) {
+        boat.fishing = true
+        fishHandler()
         // do something
-        // console.log('collision')
         // console.log (`${getDistance(boat.x, boat.y, splash.x, splash.y)} is less than ${boat.boatRadius + splash.splashRadius}`)
     } else {
-        // do something
-        return 
-    }    
+        boat.fishing = false
+    }
 }, 10)
 
-const splashAnimate = setInterval(function(){
-    splash.x = Math.floor(Math.random()*795)
-    splash.y = Math.floor(Math.random()*595)
-}, 2000)
+// const splashAnimate = setInterval(function(){
+//     splash.x = Math.floor(Math.random()*795)
+//     splash.y = Math.floor(Math.random()*595)
+// }, 2000)
 
 //handle interaction
 
