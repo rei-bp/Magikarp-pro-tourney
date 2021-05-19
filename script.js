@@ -5,9 +5,13 @@ let ctx = canvas.getContext('2d')
 let boat
 let splash
 let bag = []
+let displayWeight = []
+let displayFishNum = []
 let space = false
-
-
+//display fish data
+// let displayWeightFish = bag.map((displayFish) => {
+//     return displayFish.fishWeight
+// }
 //global functions
 function randomWeight() {
     return Math.floor(Math.random()*(45-5)+5)
@@ -17,6 +21,8 @@ function randomSplashGenerator () {
     splash.x = Math.floor(Math.random()*795)
     splash.y = Math.floor(Math.random()*595)
 }
+
+
 
 
 function getDistance(x1,y1,x2,y2) {
@@ -29,6 +35,8 @@ function getDistance(x1,y1,x2,y2) {
 function Fish (fishNumber, fishWeight) {
     this.fishNumber = fishNumber
     this.fishWeight = fishWeight
+    displayFishNum.push(fishNumber)
+    displayWeight.push(fishWeight)
 }
 function fishHandler () {
     if (boat.fishing === true) {
@@ -36,7 +44,13 @@ function fishHandler () {
         bag.push(caughtFish)
         boat.fishing = false
         randomSplashGenerator()
+        document.getElementById('1').innerText = displayWeight[0]
+        document.getElementById('2').innerText = displayWeight[1]
+        document.getElementById('3').innerText = displayWeight[2]
+        document.getElementById('4').innerText = displayWeight[3]
+        document.getElementById('5').innerText = displayWeight[4]
         console.log(bag)
+        
     } 
 }  
 
@@ -161,6 +175,7 @@ function Boat () {
 function init() {
     boat = new Boat()
     splash = new Splash()
+    bag
 }
 
 const animate = setInterval(function(){
