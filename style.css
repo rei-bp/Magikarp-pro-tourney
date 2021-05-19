@@ -19,6 +19,9 @@
 }
 
 main {
+    background-image: url("https://lh3.googleusercontent.com/proxy/99p6bBsSqnM-xLemh2065908X1sxGDEhYBeSLCRm62eklDfW2lUn5BG7kj6c0Pg-NOjK-7_YHdqq7hu3FAgf8dQZ-QKHE1ihHlhrcJJZ_-F537-QA0D6C7H5lDUTox1sSA");
+    background-size: 10%;
+    background-repeat: repeat;
     grid-area: canvas;
 }
 

@@ -44,11 +44,11 @@ function fishHandler () {
         bag.push(caughtFish)
         boat.fishing = false
         randomSplashGenerator()
-        document.getElementById('1').innerText = displayWeight[0]
-        document.getElementById('2').innerText = displayWeight[1]
-        document.getElementById('3').innerText = displayWeight[2]
-        document.getElementById('4').innerText = displayWeight[3]
-        document.getElementById('5').innerText = displayWeight[4]
+        document.getElementById('1').innerText = `${displayWeight[0]} lbs`
+        document.getElementById('2').innerText = `${displayWeight[1]} lbs`
+        document.getElementById('3').innerText = `${displayWeight[2]} lbs`
+        document.getElementById('4').innerText = `${displayWeight[3]} lbs`
+        document.getElementById('5').innerText = `${displayWeight[4]} lbs`
         console.log(bag)
         
     } 
