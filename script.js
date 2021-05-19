@@ -96,6 +96,9 @@ function keyUpHandler(e) {
     else if(e.key == "ArrowDown") {
         boat.downPressed = false
     }
+    else if(e.key == " ") {
+        space = false
+    }
 }
 
 function Splash () {
