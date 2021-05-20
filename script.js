@@ -40,9 +40,9 @@ function Fish (fishNumber, fishWeight) {
             return b-a
         })
     }
-        displayFishNum.push(fishNumber)
-        displayWeight.push(fishWeight)
-        sortData()
+    sortData()
+    displayFishNum.push(fishNumber)
+    displayWeight.push(fishWeight)
 
 }
 function fishHandler () {
@@ -71,7 +71,6 @@ function fishHandler () {
         
     } 
 }  
-
 
 document.addEventListener("keydown", keyDownHandler, false)
 document.addEventListener("keyup", keyUpHandler, false)
