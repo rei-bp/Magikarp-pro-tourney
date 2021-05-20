@@ -8,6 +8,7 @@ let bag = []
 let displayWeight = []
 let displayFishNum = []
 let space = false
+let bait = 10
 //display fish data
 // let displayWeightFish = bag.map((displayFish) => {
 //     return displayFish.fishWeight
@@ -40,31 +41,33 @@ function Fish (fishNumber, fishWeight) {
             return b-a
         })
     }
-    sortData()
     displayFishNum.push(fishNumber)
     displayWeight.push(fishWeight)
+    sortData()
+
 
 }
 function fishHandler () {
     if (boat.fishing === true) {
         boat.fishCaught++
+        bait--
         let caughtFish = new Fish(bag.length, randomWeight())
         bag.push(caughtFish)
         boat.fishing = false
         randomSplashGenerator()
-        if (boat.fishCaught === 1) {
+        if (boat.fishCaught === 1 || displayWeight[0] > 0) {
             document.getElementById('fish1').innerText = displayWeight[0]
         }
-        if (boat.fishCaught === 2) {
+        if (boat.fishCaught === 2 || displayWeight[1] > 0) {
             document.getElementById('fish2').innerText = displayWeight[1]
         }
-        if (boat.fishCaught === 3) {
+        if (boat.fishCaught === 3 || displayWeight[2] > 0) {
             document.getElementById('fish3').innerText = displayWeight[2]
         }
-        if (boat.fishCaught === 4) {
+        if (boat.fishCaught === 4 || displayWeight[3] > 0) {
             document.getElementById('fish4').innerText = displayWeight[3]
         }
-        if (boat.fishCaught === 5) {
+        if (boat.fishCaught === 5 || displayWeight[4] > 0) {
             document.getElementById('fish5').innerText = displayWeight[4]
         }
         console.log(bag)
@@ -207,9 +210,9 @@ const animate = setInterval(function(){
     }
 }, 30)
 
-const splashAnimate = setInterval(function(){
-    randomSplashGenerator()
-}, 3000)
+// const splashAnimate = setInterval(function(){
+//     randomSplashGenerator()
+// }, 3000)
 
 
 init();
