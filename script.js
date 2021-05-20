@@ -53,19 +53,19 @@ function fishHandler () {
         boat.fishing = false
         randomSplashGenerator()
         if (boat.fishCaught === 1) {
-            document.getElementById('fish1').innerText = displayWeight[0]+" lbs"
+            document.getElementById('fish1').innerText = displayWeight[0]
         }
         if (boat.fishCaught === 2) {
-            document.getElementById('fish2').innerText = displayWeight[1]+" lbs"
+            document.getElementById('fish2').innerText = displayWeight[1]
         }
         if (boat.fishCaught === 3) {
-            document.getElementById('fish3').innerText = displayWeight[2]+" lbs"
+            document.getElementById('fish3').innerText = displayWeight[2]
         }
         if (boat.fishCaught === 4) {
-            document.getElementById('fish4').innerText = displayWeight[3]+" lbs"
+            document.getElementById('fish4').innerText = displayWeight[3]
         }
         if (boat.fishCaught === 5) {
-            document.getElementById('fish5').innerText = displayWeight[4]+" lbs"
+            document.getElementById('fish5').innerText = displayWeight[4]
         }
         console.log(bag)
         

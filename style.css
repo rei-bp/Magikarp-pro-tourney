@@ -20,11 +20,13 @@ body {
 }
 
 .hud {
-    border-top: 7px double black;
+    border: 7px double black;
     display: flex;
     justify-content: center;
     align-items: center;
+    align-content: center;
     font-size: 10px;
+    background-color: #d8d2c3;
 }
 
 main {
