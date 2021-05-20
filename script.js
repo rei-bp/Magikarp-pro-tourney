@@ -7,8 +7,22 @@ let splash
 let bag = []
 let displayWeight = []
 let displayFishNum = []
+const reducer = (accumulator, currentValue) => {
+    if (displayWeight.length > 5) {
+        displayWeight.pop()
+        return accumulator + currentValue
+    } else {
+        return accumulator + currentValue
+    }
+}
+
 let space = false
 let bait = 10
+//image vars
+
+let pikachu = document.getElementById('pikachu')
+let karp = document.querySelector('.karp')
+
 //display fish data
 // let displayWeightFish = bag.map((displayFish) => {
 //     return displayFish.fishWeight
@@ -44,6 +58,8 @@ function Fish (fishNumber, fishWeight) {
     displayFishNum.push(fishNumber)
     displayWeight.push(fishWeight)
     sortData()
+    let total = displayWeight.reduce(reducer)
+    document.getElementById('6').innerText = total+" lbs"
 
 
 }
@@ -53,6 +69,7 @@ function fishHandler () {
         bait--
         let caughtFish = new Fish(bag.length, randomWeight())
         bag.push(caughtFish)
+        // karp.style.display = `block;`
         boat.fishing = false
         randomSplashGenerator()
         if (boat.fishCaught === 1 || displayWeight[0] > 0) {
@@ -156,13 +173,13 @@ function Boat () {
     this.boatRadius = 40
     this.fishing = false
     this.fishCaught = 0
+    
     this.draw = function() {
-        ctx.beginPath()
         ctx.rect(this.x, this.y, this.rectRadius, 10)
         ctx.fillStyle = "#ff0000"
         ctx.fill()
+        ctx.beginPath()
         ctx.arc( this.x, this.y, this.boatRadius, 0, Math.PI*2)
-        // ctx.stroke()
         ctx.closePath()
     }
     this.movementSpeed = function() {
@@ -203,6 +220,7 @@ const animate = setInterval(function(){
     if (getDistance(boat.x, boat.y, splash.x, splash.y) < boat.boatRadius + splash.splashRadius && space === true) {
         boat.fishing = true
         fishHandler()
+        karp.style.display = "block";
         // do something
         // console.log (`${getDistance(boat.x, boat.y, splash.x, splash.y)} is less than ${boat.boatRadius + splash.splashRadius}`)
     } else {
@@ -210,9 +228,9 @@ const animate = setInterval(function(){
     }
 }, 30)
 
-// const splashAnimate = setInterval(function(){
-//     randomSplashGenerator()
-// }, 3000)
+const splashAnimate = setInterval(function(){
+    randomSplashGenerator()
+}, 3000)
 
 
 init();

@@ -59,3 +59,19 @@ main {
 #5 {
     grid-area: 6;
 }
+
+.karp-container {
+    position: absolute;
+    display: flex;
+    width: 800px;
+    justify-content: center;
+}
+
+.karp {
+    display: none;
+}
+
+@keyframes catchKarp {
+    from {display: block;}
+    to {display: none;}
+}
