@@ -30,7 +30,7 @@ body {
 }
 
 main {
-    background-image: url("water.gif");
+    background-image: url("/css/imgs/water.gif");
     background-size: 10%;
     background-repeat: repeat;
     grid-area: canvas;
@@ -66,12 +66,19 @@ main {
     width: 800px;
     justify-content: center;
 }
-
-.karp {
-    display: none;
+@keyframes fade-in {
+    from {opacity: 0;}
+    to {opacity: 3;}
 }
 
-@keyframes catchKarp {
-    from {display: block;}
-    to {display: none;}
+@keyframes fade-out {
+    from {opacity: 3;}
+    to {opacity: 0;
+    }
+}
+
+.karp {
+    /* display: none; */
+    /* animation: fade-in 3s; */
+    opacity: 0;
 }

@@ -88,6 +88,10 @@ function fishHandler () {
             document.getElementById('fish5').innerText = displayWeight[4]
         }
         console.log(bag)
+        setTimeout(() => {
+        karp.style.animation = "fade-out 2s";
+        // karp.style.display = "none";
+        }, 2000)
         
     } 
 }  
@@ -220,7 +224,9 @@ const animate = setInterval(function(){
     if (getDistance(boat.x, boat.y, splash.x, splash.y) < boat.boatRadius + splash.splashRadius && space === true) {
         boat.fishing = true
         fishHandler()
-        karp.style.display = "block";
+        // karp.style.display = "block";
+        karp.style.animation = "fade-in 2s";
+
         // do something
         // console.log (`${getDistance(boat.x, boat.y, splash.x, splash.y)} is less than ${boat.boatRadius + splash.splashRadius}`)
     } else {
