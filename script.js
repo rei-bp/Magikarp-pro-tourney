@@ -192,12 +192,10 @@ const animate = setInterval(function(){
     }
 }, 20)
 
-// const splashAnimate = setInterval(function(){
-//     splash.x = Math.floor(Math.random()*795)
-//     splash.y = Math.floor(Math.random()*595)
-// }, 2000)
+const splashAnimate = setInterval(function(){
+    randomSplashGenerator()
+}, 2000)
 
-//handle interaction
 
 init();
 
