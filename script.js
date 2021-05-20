@@ -14,12 +14,12 @@ let space = false
 // }
 //global functions
 function randomWeight() {
-    return Math.floor(Math.random()*(45-5)+5)
+    return Math.floor(Math.random()*(4500-500)+500)/100
 }
 
 function randomSplashGenerator () {
-    splash.x = Math.floor(Math.random()*795)
-    splash.y = Math.floor(Math.random()*595)
+    splash.x = Math.floor(Math.random()*790)
+    splash.y = Math.floor(Math.random()*590)
 }
 
 
@@ -35,20 +35,38 @@ function getDistance(x1,y1,x2,y2) {
 function Fish (fishNumber, fishWeight) {
     this.fishNumber = fishNumber
     this.fishWeight = fishWeight
-    displayFishNum.push(fishNumber)
-    displayWeight.push(fishWeight)
+    function sortData (){
+        displayWeight.sort(function (a, b) {
+            return b-a
+        })
+    }
+        displayFishNum.push(fishNumber)
+        displayWeight.push(fishWeight)
+        sortData()
+
 }
 function fishHandler () {
     if (boat.fishing === true) {
+        boat.fishCaught++
         let caughtFish = new Fish(bag.length, randomWeight())
         bag.push(caughtFish)
         boat.fishing = false
         randomSplashGenerator()
-        document.getElementById('1').innerText = `${displayWeight[0]} lbs`
-        document.getElementById('2').innerText = `${displayWeight[1]} lbs`
-        document.getElementById('3').innerText = `${displayWeight[2]} lbs`
-        document.getElementById('4').innerText = `${displayWeight[3]} lbs`
-        document.getElementById('5').innerText = `${displayWeight[4]} lbs`
+        if (boat.fishCaught === 1) {
+            document.getElementById('fish1').innerText = displayWeight[0]+" lbs"
+        }
+        if (boat.fishCaught === 2) {
+            document.getElementById('fish2').innerText = displayWeight[1]+" lbs"
+        }
+        if (boat.fishCaught === 3) {
+            document.getElementById('fish3').innerText = displayWeight[2]+" lbs"
+        }
+        if (boat.fishCaught === 4) {
+            document.getElementById('fish4').innerText = displayWeight[3]+" lbs"
+        }
+        if (boat.fishCaught === 5) {
+            document.getElementById('fish5').innerText = displayWeight[4]+" lbs"
+        }
         console.log(bag)
         
     } 
@@ -147,24 +165,22 @@ function Boat () {
     }
     this.movementSpeed = function() {
         if(this.rightPressed) {
-            this.x += 3
-        } if (this.x > canvas.width) {
-            this.x = 0
+            this.x += 2
         } if(this.leftPressed) {
-            this.x -= 3
+            this.x -= 2
+        } if(this.upPressed) {
+            this.y -= 2
+        } if(this.downPressed) {
+            this.y += 2
         } if (this.x < 0) {
             this.x = canvas.width
-        }
-        if(this.upPressed) {
-            this.y -= 3
-        } if ( this.y < 0) {
-            this.y = canvas.height
-        }
-        if(this.downPressed) {
-            this.y += 3
+        } if (this.x > canvas.width) {
+            this.x = 0
         } if ( this.y > canvas.height) {
             this.y = 0            
-        }
+        } if ( this.y < 0) {
+            this.y = canvas.height
+        } 
     }
     this.update = function () {
         this.draw()
@@ -190,11 +206,11 @@ const animate = setInterval(function(){
     } else {
         boat.fishing = false
     }
-}, 20)
+}, 30)
 
 const splashAnimate = setInterval(function(){
     randomSplashGenerator()
-}, 2000)
+}, 3000)
 
 
 init();

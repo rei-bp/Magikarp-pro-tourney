@@ -1,17 +1,26 @@
 
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Press Start 2P', cursive;
+    
+}
+
 .container {
-    height: 680px;
+    height: 690px;
     width: 800px;
-    border: 1px solid black;
+    border: 5px solid black;
     display: grid;
-    grid-template-rows: 600px 80px;
-    grid-template-columns:repeat(7, 1fr);
+    grid-template-rows: 600px 90px;
+    grid-template-columns: 1.5fr .5fr .5fr .5fr .5fr .5fr .75fr;
     grid-template-areas: "canvas canvas canvas canvas canvas canvas canvas"
                         "0 1 2 3 4 5 6";
 }
 
 .hud {
-    border-top: 1px solid black;
+    border-top: 7px double black;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -20,7 +29,7 @@
 
 main {
     background-image: url("water.gif");
-    background-size: 30%;
+    background-size: 10%;
     background-repeat: repeat;
     grid-area: canvas;
 }
