@@ -192,17 +192,17 @@ function Gyrados () {
     this.x = 500
     this.y = 300
     this.radius = 100
-    this.sW = 220
-    this.sH = 220
+    this.sW = 100
+    this.sH = 100
     this.frameX = 0
     this.frameY = 0
     this.gameFrame = 0
-    this.staggerFrame = 5
+    this.staggerFrame = 15
     this.draw = function () {
         // ctx.drawImage(gyradosImg, this.x, this.y, 250, 300)
-        drawSprite(gyradosImg, this.sW*this.frameX, this.sW*this.frameY, this.sW, this.sH, this.x, this.y, 100, 100)
+        drawSprite(gyradosImg, this.sW*this.frameX, this.sW*this.frameY, this.sW, this.sH, this.x, this.y, 200, 200)
         if (this.gameFrame % this.staggerFrame == 0 ) {
-            if (this.frameX < 86) {
+            if (this.frameX < 1) {
                      this.frameX++
                  } else {
                      this.frameX = 0
@@ -213,8 +213,6 @@ function Gyrados () {
     this.update = function () {
         this.draw()
     }
-
-
 }
 
 
@@ -336,9 +334,9 @@ const animate = setInterval(function() {
     }
 }, 30)
 
-// const splashAnimate = setInterval(function() {
-//     randomSplashGenerator()
-// }, 3000)
+const splashAnimate = setInterval(function() {
+    randomSplashGenerator()
+}, 3000)
 
 const gyradosAnimate = setInterval(function() {
     gyrados.x = Math.floor(Math.random()*650)
