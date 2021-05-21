@@ -34,6 +34,16 @@ button:hover {
 
 }
 
+.instructions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    width: 600px;
+    height: 40px;
+    margin-top: 20px;
+}
+
 .container {
     height: 690px;
     width: 800px;
@@ -57,7 +67,7 @@ button:hover {
 }
 
 main {
-    background-image: url("/css/imgs/water.gif");
+    background-image: url("css/imgs/water.gif");
     background-size: 10%;
     background-repeat: repeat;
     grid-area: canvas;
