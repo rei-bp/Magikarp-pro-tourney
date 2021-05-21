@@ -19,9 +19,13 @@ const reducer = (accumulator, currentValue) => {
 let space = false
 let bait = 10
 //image vars
+
+let gyradosImg = new Image ()
+gyradosImg.src = '/css/imgs/gyrados.png'
+
 const images = {}
 images.player = new Image()
-images.player.src = '/css/imgs/laprassprite.png'
+images.player.src = '/css/imgs/newlapras.png'
 
 
 let splashImg = new Image()
@@ -30,8 +34,8 @@ splashFrameX = 0
 
 
 
-const playerWidth = '61'
-const playerHeight = '66'
+const playerWidth = '64'
+const playerHeight = '64'
 let playerFrameX = 0
 let playerFrameY = 0
 
@@ -53,8 +57,8 @@ function randomWeight() {
 }
 
 function randomSplashGenerator () {
-    splash.x = Math.floor(Math.random()*790)
-    splash.y = Math.floor(Math.random()*590)
+    splash.x = Math.floor(Math.random()*770)
+    splash.y = Math.floor(Math.random()*570)
 }
 
 
@@ -167,18 +171,42 @@ function keyUpHandler(e) {
     }
 }
 
+//object function
+
+
+function Gyrados () {
+    this.x = 600
+    this.y = 300
+    this.radius = 125
+    this.draw = function () {
+        ctx.drawImage(gyradosImg, this.x, this.y, 120, 150)
+    }
+    this.update = function () {
+        this.draw()
+    }
+
+
+}
+
+
+
 function Splash () {
     this.x = 30//Math.floor(Math.random()*(canvas.width- this.splashRadius))
     this.y = 30//Math.floor(Math.random()*(canvas.height-this.splashRadius))
-    this.splashRadius = 5
+    this.splashRadius = 50
+    this.gameFrame = 0
+    this.staggerFrame = 5
     this.draw = function () {
        drawSprite(splashImg, 0, 0, 500, 498, this.x, this.y, 50,50 )
-       if (splashFrameX < 4) {
-           splashFrameX++
-       } else {
-           splashFrameX = 0
-       }
-        // this.x = Math.floor(Math.random()*(canvas.width- this.splashRadius));
+       if (this.gameFrame % this.staggerFrame == 0 ) {
+           if (splashFrameX < 4) {
+                    splashFrameX++
+                } else {
+                    splashFrameX = 0
+                }
+        }
+        this.gameFrame++
+            // this.x = Math.floor(Math.random()*(canvas.width- this.splashRadius));
         // this.y = Math.floor(Math.random()*(canvas.height-this.splashRadius));
         // ctx.beginPath()
         // ctx.arc( this.x, this.y, this.splashRadius, 0, Math.PI*2)
@@ -214,8 +242,11 @@ function Boat () {
 
     this.draw = function () {
         drawSprite(images.player, 0, 0, playerWidth, playerHeight, this.x, this.y, playerWidth, playerHeight)
-        if (playerFrameX < 2) playerFrameX++
-            else playerFrameX = 1
+        if (playerFrameX < 3) {
+            playerFrameX++
+        }else {
+            playerFrameX = 0
+        }
     }
 
     this.movementSpeed = function() {
@@ -246,13 +277,15 @@ function Boat () {
 function init() {
     boat = new Boat()
     splash = new Splash()
+    gyrados = new Gyrados()
     bag
 }
 
-const animate = setInterval(function(){
+const animate = setInterval(function() {
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     boat.update()
     splash.update()
+    gyrados.update()
     if (getDistance(boat.x, boat.y, splash.x, splash.y) < boat.boatRadius + splash.splashRadius && space === true) {
         boat.fishing = true
         fishHandler()
@@ -265,9 +298,14 @@ const animate = setInterval(function(){
     }
 }, 30)
 
-const splashAnimate = setInterval(function(){
+const splashAnimate = setInterval(function() {
     randomSplashGenerator()
 }, 3000)
+
+const gyradosAnimate = setInterval(function() {
+    gyrados.x = Math.floor(Math.random()*700)
+    gyrados.y = Math.floor(Math.random()*500)
+}, 6500)
 
 
 init();
