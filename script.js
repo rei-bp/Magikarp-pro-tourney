@@ -377,6 +377,10 @@ const animate = setInterval(function() {
     } else {
         boat.fishing = false
     }
+    if (getDistance(boat.x, boat.y, gyrados.x+50, gyrados.y+50) < boat.boatRadius + gyrados.radius) {
+        restartinit()
+        console.log('hit gyrados')
+    }
 }, 30)
 
 // const splashAnimate = setInterval(function() {
