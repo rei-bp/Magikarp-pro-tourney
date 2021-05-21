@@ -18,15 +18,15 @@ let totalHiScore = 0
 //image vars
 
 let gyradosImg = new Image ()
-gyradosImg.src = './css/imgs/gyradossprite.png'
+gyradosImg.src = 'css/imgs/gyradossprite.png'
 
 const images = {}
 images.player = new Image()
-images.player.src = './css/imgs/newlapras.png'
+images.player.src = 'css/imgs/newlapras.png'
 
 
 let splashImg = new Image()
-splashImg.src = './css/imgs/watersplash.png'
+splashImg.src = 'css/imgs/watersplash.png'
 splashFrameX = 0
 splashFrameY= 0
 
