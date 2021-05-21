@@ -5,11 +5,11 @@ let ctx = canvas.getContext('2d')
 let boat
 let splash
 let bag = []
-let displayWeight = []
+let displaySortWeight = []
 let displayFishNum = []
 const reducer = (accumulator, currentValue) => {
-    if (displayWeight.length > 5) {
-        displayWeight.pop()
+    if (displaySortWeight.length > 5) {
+        displaySortWeight.pop()
         return accumulator + currentValue
     } else {
         return accumulator + currentValue
@@ -19,9 +19,29 @@ const reducer = (accumulator, currentValue) => {
 let space = false
 let bait = 10
 //image vars
+const images = {}
+images.player = new Image()
+images.player.src = '/css/imgs/laprassprite.png'
+
+
+let splashImg = new Image()
+splashImg.src = '/css/imgs/spritesheet.png'
+splashFrameX = 0
+
+
+
+const playerWidth = '61'
+const playerHeight = '66'
+let playerFrameX = 0
+let playerFrameY = 0
+
+function drawSprite(img, sX,sY, sW, sH, dX, dY, dW, dH){
+    ctx.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH)
+}
+
 
 let pikachu = document.getElementById('pikachu')
-let karp = document.querySelector('.karp')
+let karp = document.querySelector('.karp-container')
 
 //display fish data
 // let displayWeightFish = bag.map((displayFish) => {
@@ -51,14 +71,15 @@ function Fish (fishNumber, fishWeight) {
     this.fishNumber = fishNumber
     this.fishWeight = fishWeight
     function sortData (){
-        displayWeight.sort(function (a, b) {
+        displaySortWeight.sort(function (a, b) {
             return b-a
         })
     }
     displayFishNum.push(fishNumber)
-    displayWeight.push(fishWeight)
+    displaySortWeight.push(fishWeight)
     sortData()
-    let total = displayWeight.reduce(reducer)
+    let total = displaySortWeight.reduce(reducer)
+    document.querySelector('.fish-text-animation-weight').innerText = 'Weight: '+this.fishWeight+' lbs'
     document.getElementById('6').innerText = total+" lbs"
 
 
@@ -72,25 +93,24 @@ function fishHandler () {
         // karp.style.display = `block;`
         boat.fishing = false
         randomSplashGenerator()
-        if (boat.fishCaught === 1 || displayWeight[0] > 0) {
-            document.getElementById('fish1').innerText = displayWeight[0]
+        if (boat.fishCaught === 1 || displaySortWeight[0] > 0) {
+            document.getElementById('fish1').innerText = displaySortWeight[0]
         }
-        if (boat.fishCaught === 2 || displayWeight[1] > 0) {
-            document.getElementById('fish2').innerText = displayWeight[1]
+        if (boat.fishCaught === 2 || displaySortWeight[1] > 0) {
+            document.getElementById('fish2').innerText = displaySortWeight[1]
         }
-        if (boat.fishCaught === 3 || displayWeight[2] > 0) {
-            document.getElementById('fish3').innerText = displayWeight[2]
+        if (boat.fishCaught === 3 || displaySortWeight[2] > 0) {
+            document.getElementById('fish3').innerText = displaySortWeight[2]
         }
-        if (boat.fishCaught === 4 || displayWeight[3] > 0) {
-            document.getElementById('fish4').innerText = displayWeight[3]
+        if (boat.fishCaught === 4 || displaySortWeight[3] > 0) {
+            document.getElementById('fish4').innerText = displaySortWeight[3]
         }
-        if (boat.fishCaught === 5 || displayWeight[4] > 0) {
-            document.getElementById('fish5').innerText = displayWeight[4]
+        if (boat.fishCaught === 5 || displaySortWeight[4] > 0) {
+            document.getElementById('fish5').innerText = displaySortWeight[4]
         }
         console.log(bag)
         setTimeout(() => {
         karp.style.animation = "fade-out 2s";
-        // karp.style.display = "none";
         }, 2000)
         
     } 
@@ -152,14 +172,19 @@ function Splash () {
     this.y = 30//Math.floor(Math.random()*(canvas.height-this.splashRadius))
     this.splashRadius = 5
     this.draw = function () {
+       drawSprite(splashImg, 0, 0, 500, 498, this.x, this.y, 50,50 )
+       if (splashFrameX < 4) {
+           splashFrameX++
+       } else {
+           splashFrameX = 0
+       }
         // this.x = Math.floor(Math.random()*(canvas.width- this.splashRadius));
         // this.y = Math.floor(Math.random()*(canvas.height-this.splashRadius));
-        ctx.beginPath()
-        ctx.arc( this.x, this.y, this.splashRadius, 0, Math.PI*2)
-        ctx.fillStyle = "#000080"
-        ctx.fill()
-        ctx.closePath()
-
+        // ctx.beginPath()
+        // ctx.arc( this.x, this.y, this.splashRadius, 0, Math.PI*2)
+        // ctx.fillStyle = "#000080"
+        // ctx.fill()
+        // ctx.closePath()
     }
     this.update = function () {
         this.draw()
@@ -168,24 +193,31 @@ function Splash () {
 
 function Boat () {
     this.rectRadius = 10
-    this.x = canvas.width/2
-    this.y = canvas.height-30
+    this.x = 400
+    this.y = 400
     this.rightPressed = false
     this.leftPressed = false
     this.upPressed = false
     this.downPressed = false
-    this.boatRadius = 40
+    this.boatRadius = 80
     this.fishing = false
     this.fishCaught = 0
     
-    this.draw = function() {
-        ctx.rect(this.x, this.y, this.rectRadius, 10)
-        ctx.fillStyle = "#ff0000"
-        ctx.fill()
-        ctx.beginPath()
-        ctx.arc( this.x, this.y, this.boatRadius, 0, Math.PI*2)
-        ctx.closePath()
+    // this.draw = function() {
+    //     ctx.rect(this.x, this.y, this.rectRadius, 10)
+    //     ctx.fillStyle = "#ff0000"
+    //     ctx.fill()
+    //     ctx.beginPath()
+    //     ctx.arc( this.x, this.y, this.boatRadius, 0, Math.PI*2)
+    //     ctx.closePath()
+    // }
+
+    this.draw = function () {
+        drawSprite(images.player, 0, 0, playerWidth, playerHeight, this.x, this.y, playerWidth, playerHeight)
+        if (playerFrameX < 2) playerFrameX++
+            else playerFrameX = 1
     }
+
     this.movementSpeed = function() {
         if(this.rightPressed) {
             this.x += 2
@@ -224,7 +256,6 @@ const animate = setInterval(function(){
     if (getDistance(boat.x, boat.y, splash.x, splash.y) < boat.boatRadius + splash.splashRadius && space === true) {
         boat.fishing = true
         fishHandler()
-        // karp.style.display = "block";
         karp.style.animation = "fade-in 2s";
 
         // do something

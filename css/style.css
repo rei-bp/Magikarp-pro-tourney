@@ -63,9 +63,24 @@ main {
 .karp-container {
     position: absolute;
     display: flex;
-    width: 800px;
     justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 300px;
+    opacity: 0;
+    margin-top: 11%;
+    margin-left: 16%;
 }
+
+.karp {
+    width: 175px;
+}
+
+.fish-text-animation, .fish-text-animation-weight {
+    display: flex;
+    font-size: small;
+}
+
 @keyframes fade-in {
     from {opacity: 0;}
     to {opacity: 3;}
@@ -77,8 +92,3 @@ main {
     }
 }
 
-.karp {
-    /* display: none; */
-    /* animation: fade-in 3s; */
-    opacity: 0;
-}
