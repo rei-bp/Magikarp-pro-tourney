@@ -1,4 +1,4 @@
-//CANVAS ATTEMPT
+
 //global vars
 let canvas = document.getElementById('myCanvas')
 let ctx = canvas.getContext('2d')
@@ -7,21 +7,13 @@ let splash
 let bag = []
 let displaySortWeight = []
 let displayFishNum = []
-const reducer = (accumulator, currentValue) => {
-    if (displaySortWeight.length > 5) {
-        displaySortWeight.pop()
-        return accumulator + currentValue
-    } else {
-        return accumulator + currentValue
-    }
-}
-
+let karp = document.querySelector('.karp-container')
 let space = false
 let bait = 10
 //image vars
 
 let gyradosImg = new Image ()
-gyradosImg.src = '/css/imgs/gyrados.png'
+gyradosImg.src = '/css/imgs/gyradossprite.png'
 
 const images = {}
 images.player = new Image()
@@ -29,31 +21,43 @@ images.player.src = '/css/imgs/newlapras.png'
 
 
 let splashImg = new Image()
-splashImg.src = '/css/imgs/spritesheet.png'
+splashImg.src = '/css/imgs/watersplash.png'
 splashFrameX = 0
+splashFrameY= 0
 
 
 
 const playerWidth = '64'
-const playerHeight = '64'
+const playerHeight = '63'
 let playerFrameX = 0
 let playerFrameY = 0
+let playerYLeft = 1
+let playerYRight = 2
+let playerYUp = 3
+
+
+
 
 function drawSprite(img, sX,sY, sW, sH, dX, dY, dW, dH){
     ctx.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH)
 }
 
 
-let pikachu = document.getElementById('pikachu')
-let karp = document.querySelector('.karp-container')
 
-//display fish data
-// let displayWeightFish = bag.map((displayFish) => {
-//     return displayFish.fishWeight
-// }
 //global functions
+
+
+let reducer = (a, b) => {
+    if (displaySortWeight.length > 5) {
+        displaySortWeight.pop()
+        return a + b
+    } else {
+        return a + b
+    }
+}
+
 function randomWeight() {
-    return Math.floor(Math.random()*(4500-500)+500)/100
+    return Math.floor(Math.random()*(450-50)+50)/10
 }
 
 function randomSplashGenerator () {
@@ -62,13 +66,11 @@ function randomSplashGenerator () {
 }
 
 
-
-
 function getDistance(x1,y1,x2,y2) {
     let xDistance = x2 - x1
     let yDistance = y2- y1
     return Math.sqrt(Math.pow(xDistance, 2) + 
-        Math.pow(yDistance,2)
+    Math.pow(yDistance,2)
     )
 }
 function Fish (fishNumber, fishWeight) {
@@ -82,11 +84,19 @@ function Fish (fishNumber, fishWeight) {
     displayFishNum.push(fishNumber)
     displaySortWeight.push(fishWeight)
     sortData()
-    let total = displaySortWeight.reduce(reducer)
+    let total = displaySortWeight.reduce((a, b) => {
+        if (displaySortWeight.length > 5) {
+            displaySortWeight.pop()
+            return a + b
+        } else {
+            return a + b
+        }
+    }).toFixed(1)
+
     document.querySelector('.fish-text-animation-weight').innerText = 'Weight: '+this.fishWeight+' lbs'
     document.getElementById('6').innerText = total+" lbs"
-
-
+    
+    
 }
 function fishHandler () {
     if (boat.fishing === true) {
@@ -126,24 +136,28 @@ document.addEventListener("keyup", keyUpHandler, false)
 function keyDownHandler(e) {
     if(e.key == "ArrowRight") {
         boat.rightPressed = true
+        playerFrameY = 2
             if (boat.x > canvas.width) {
                 boat.rightPressed = false
             }
     }
     else if(e.key == "ArrowLeft") {
         boat.leftPressed = true
+        playerFrameY = 1
             if (boat.x < 0) {
                 boat.leftPressed = false
             }
     }    
     else if(e.key == "ArrowUp") {
         boat.upPressed = true
+        playerFrameY = 3
             if (boat.y < 0) {
                 boat.upPressed = false
             }
     }
     else if(e.key == "ArrowDown") {
         boat.downPressed = true
+        playerFrameY = 0
             if (boat.y > canvas.height) {
                 boat.downPressed = false
             }
@@ -175,11 +189,26 @@ function keyUpHandler(e) {
 
 
 function Gyrados () {
-    this.x = 600
+    this.x = 500
     this.y = 300
-    this.radius = 125
+    this.radius = 100
+    this.sW = 220
+    this.sH = 220
+    this.frameX = 0
+    this.frameY = 0
+    this.gameFrame = 0
+    this.staggerFrame = 5
     this.draw = function () {
-        ctx.drawImage(gyradosImg, this.x, this.y, 120, 150)
+        // ctx.drawImage(gyradosImg, this.x, this.y, 250, 300)
+        drawSprite(gyradosImg, this.sW*this.frameX, this.sW*this.frameY, this.sW, this.sH, this.x, this.y, 100, 100)
+        if (this.gameFrame % this.staggerFrame == 0 ) {
+            if (this.frameX < 86) {
+                     this.frameX++
+                 } else {
+                     this.frameX = 0
+                 }
+         }
+         this.gameFrame++
     }
     this.update = function () {
         this.draw()
@@ -193,13 +222,15 @@ function Gyrados () {
 function Splash () {
     this.x = 30//Math.floor(Math.random()*(canvas.width- this.splashRadius))
     this.y = 30//Math.floor(Math.random()*(canvas.height-this.splashRadius))
-    this.splashRadius = 50
+    this.splashRadius = 20
     this.gameFrame = 0
-    this.staggerFrame = 5
+    this.staggerFrame = 15
+    this.sW = 150
+    this.sH = 66
     this.draw = function () {
-       drawSprite(splashImg, 0, 0, 500, 498, this.x, this.y, 50,50 )
+       drawSprite(splashImg, this.sW*splashFrameX, this.sH*splashFrameY, this.sW, this.sH, this.x, this.y, 75,50)
        if (this.gameFrame % this.staggerFrame == 0 ) {
-           if (splashFrameX < 4) {
+           if (splashFrameX < 2) {
                     splashFrameX++
                 } else {
                     splashFrameX = 0
@@ -227,10 +258,14 @@ function Boat () {
     this.leftPressed = false
     this.upPressed = false
     this.downPressed = false
-    this.boatRadius = 80
+    this.boatRadius = 50
     this.fishing = false
     this.fishCaught = 0
-    
+    this.left = playerYLeft
+    this.right = playerYRight
+    this.up = playerYUp
+    this.gameFrame = 0
+    this.staggerFrame = 10
     // this.draw = function() {
     //     ctx.rect(this.x, this.y, this.rectRadius, 10)
     //     ctx.fillStyle = "#ff0000"
@@ -241,23 +276,26 @@ function Boat () {
     // }
 
     this.draw = function () {
-        drawSprite(images.player, 0, 0, playerWidth, playerHeight, this.x, this.y, playerWidth, playerHeight)
-        if (playerFrameX < 3) {
-            playerFrameX++
-        }else {
-            playerFrameX = 0
-        }
+        drawSprite(images.player, playerWidth*playerFrameX, playerHeight*playerFrameY, playerWidth, playerHeight, this.x, this.y, playerWidth, playerHeight)
+        if (this.gameFrame % this.staggerFrame == 0 ) {
+            if (playerFrameX < 3) {
+                     playerFrameX++
+                 } else {
+                     playerFrameX = 0
+                 }
+            } 
+         this.gameFrame++
     }
 
     this.movementSpeed = function() {
         if(this.rightPressed) {
-            this.x += 2
+            this.x += 1.5
         } if(this.leftPressed) {
-            this.x -= 2
+            this.x -= 1.5
         } if(this.upPressed) {
-            this.y -= 2
+            this.y -= 1.5
         } if(this.downPressed) {
-            this.y += 2
+            this.y += 1.5
         } if (this.x < 0) {
             this.x = canvas.width
         } if (this.x > canvas.width) {
@@ -298,13 +336,13 @@ const animate = setInterval(function() {
     }
 }, 30)
 
-const splashAnimate = setInterval(function() {
-    randomSplashGenerator()
-}, 3000)
+// const splashAnimate = setInterval(function() {
+//     randomSplashGenerator()
+// }, 3000)
 
 const gyradosAnimate = setInterval(function() {
-    gyrados.x = Math.floor(Math.random()*700)
-    gyrados.y = Math.floor(Math.random()*500)
+    gyrados.x = Math.floor(Math.random()*650)
+    gyrados.y = Math.floor(Math.random()*300)
 }, 6500)
 
 
