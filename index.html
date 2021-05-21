@@ -12,19 +12,24 @@
 <body>  
     <div class="container">
         <main>
+        <div class="hi-score">HI SCORE:</div>
         <div class="karp-container"><img src="/css/imgs/karp.png" class='karp' alt="Magikarp">
         <p class="fish-text-animation">Magikarp Caught!</p>
         <p class="fish-text-animation-weight"></p></div>
         <canvas id="myCanvas" width=800 height=600></canvas>
         </main>
         <!-- <img src="surfingpikachu.png" alt="boat" height="50" width="40" class='boat'> -->
-        <aside id="0" class="hud"><p class="fishtext"><span class="fish-weight"></span></p></aside>
+        <aside id="0" class="hud"><p class="fishtext">
+            <button onclick="playAudio()" class='audio' type="button">▶</button>
+            <button onclick="pauseAudio()" class='audio' type="button">||</button> 
+            <button onclick="restartinit()" class='restart' type="button">Restart</button>
+        </p></aside>
         <aside id="1" class="hud"><p class="fishtext" id="fish1"><span class="fish-weight"></span></p></aside>
         <aside id="2" class="hud"><p class="fishtext" id="fish2"><span class="fish-weight"></span></p></aside>
         <aside id="3" class="hud"><p class="fishtext" id="fish3"><span class="fish-weight"></span></p></aside>
         <aside id="4" class="hud"><p class="fishtext" id="fish4"><span class="fish-weight" ></span></p></aside>
         <aside id="5" class="hud"><p class="fishtext" id="fish5"><span class="fish-weight" ></span></p></aside>
-        <aside id="6" class="hud total"><p><span class="fish-weight"></span></p>lbs</aside>
+        <aside id="6" class="hud"><p class="total"><span class="fish-weight"></span></p>lbs</aside>
     </div>
 </body>
 <script src="script.js"></script>

@@ -7,9 +7,14 @@ let splash
 let bag = []
 let displaySortWeight = []
 let displayFishNum = []
+let hiScoreArr = []
 let karp = document.querySelector('.karp-container')
 let space = false
 let bait = 10
+let restart = false
+let totalHiScore = 0
+
+
 //image vars
 
 let gyradosImg = new Image ()
@@ -37,6 +42,17 @@ let playerYUp = 3
 
 
 
+//Music
+var myAudio = new Audio('/audio/surf.mp3')
+myAudio.loop = true
+
+function playAudio() { 
+  myAudio.play()
+} 
+
+function pauseAudio() { 
+  myAudio.pause()
+}
 
 function drawSprite(img, sX,sY, sW, sH, dX, dY, dW, dH){
     ctx.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH)
@@ -45,7 +61,49 @@ function drawSprite(img, sX,sY, sW, sH, dX, dY, dW, dH){
 
 
 //global functions
+function restartinit() {
+    restart = true
+    restartHandler()
+}
 
+
+function restartHandler() {
+if (restart === true) {
+    hiScoreArr.push(totalHiScore)
+    hiScoreArr.sort(function (a, b) {
+        return b-a
+    })
+    document.querySelector('.hi-score').innerText = 'HI SCORE: '+hiScoreArr[0]+'lbs'
+    bag.length = 0
+    displaySortWeight.length = 0
+    displayFishNum.length = 0
+    document.getElementById('fish1').innerText = " "
+    document.getElementById('fish2').innerText = " "
+    document.getElementById('fish3').innerText = " "
+    document.getElementById('fish4').innerText = " "
+    document.getElementById('fish5').innerText = " "
+    } else {
+        restart = false
+    }
+}
+
+function display() {
+    if (boat.fishCaught === 1 || displaySortWeight[0] > 0) {
+        document.getElementById('fish1').innerText = displaySortWeight[0]
+    }
+    if (boat.fishCaught === 2 || displaySortWeight[1] > 0) {
+        document.getElementById('fish2').innerText = displaySortWeight[1]
+    }
+    if (boat.fishCaught === 3 || displaySortWeight[2] > 0) {
+        document.getElementById('fish3').innerText = displaySortWeight[2]
+    }
+    if (boat.fishCaught === 4 || displaySortWeight[3] > 0) {
+        document.getElementById('fish4').innerText = displaySortWeight[3]
+    }
+    if (boat.fishCaught === 5 || displaySortWeight[4] > 0) {
+        document.getElementById('fish5').innerText = displaySortWeight[4]
+    }
+}
 
 let reducer = (a, b) => {
     if (displaySortWeight.length > 5) {
@@ -81,10 +139,10 @@ function Fish (fishNumber, fishWeight) {
             return b-a
         })
     }
-    displayFishNum.push(fishNumber)
+    displayFishNum.push(fishNumber) 
     displaySortWeight.push(fishWeight)
     sortData()
-    let total = displaySortWeight.reduce((a, b) => {
+    totalHiScore = displaySortWeight.reduce((a, b) => {
         if (displaySortWeight.length > 5) {
             displaySortWeight.pop()
             return a + b
@@ -94,7 +152,7 @@ function Fish (fishNumber, fishWeight) {
     }).toFixed(1)
 
     document.querySelector('.fish-text-animation-weight').innerText = 'Weight: '+this.fishWeight+' lbs'
-    document.getElementById('6').innerText = total+" lbs"
+    document.getElementById('6').innerText = totalHiScore+" lbs"
     
     
 }
@@ -107,21 +165,7 @@ function fishHandler () {
         // karp.style.display = `block;`
         boat.fishing = false
         randomSplashGenerator()
-        if (boat.fishCaught === 1 || displaySortWeight[0] > 0) {
-            document.getElementById('fish1').innerText = displaySortWeight[0]
-        }
-        if (boat.fishCaught === 2 || displaySortWeight[1] > 0) {
-            document.getElementById('fish2').innerText = displaySortWeight[1]
-        }
-        if (boat.fishCaught === 3 || displaySortWeight[2] > 0) {
-            document.getElementById('fish3').innerText = displaySortWeight[2]
-        }
-        if (boat.fishCaught === 4 || displaySortWeight[3] > 0) {
-            document.getElementById('fish4').innerText = displaySortWeight[3]
-        }
-        if (boat.fishCaught === 5 || displaySortWeight[4] > 0) {
-            document.getElementById('fish5').innerText = displaySortWeight[4]
-        }
+        display()
         console.log(bag)
         setTimeout(() => {
         karp.style.animation = "fade-out 2s";
@@ -314,7 +358,6 @@ function init() {
     boat = new Boat()
     splash = new Splash()
     gyrados = new Gyrados()
-    bag
 }
 
 const animate = setInterval(function() {
@@ -322,6 +365,8 @@ const animate = setInterval(function() {
     boat.update()
     splash.update()
     gyrados.update()
+    restart = false
+    displaySortWeight
     if (getDistance(boat.x, boat.y, splash.x, splash.y) < boat.boatRadius + splash.splashRadius && space === true) {
         boat.fishing = true
         fishHandler()
@@ -334,9 +379,9 @@ const animate = setInterval(function() {
     }
 }, 30)
 
-const splashAnimate = setInterval(function() {
-    randomSplashGenerator()
-}, 3000)
+// const splashAnimate = setInterval(function() {
+//     randomSplashGenerator()
+// }, 3000)
 
 const gyradosAnimate = setInterval(function() {
     gyrados.x = Math.floor(Math.random()*650)
