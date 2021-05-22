@@ -162,15 +162,13 @@ function fishHandler () {
         bait--
         let caughtFish = new Fish(bag.length, randomWeight())
         bag.push(caughtFish)
-        // karp.style.display = `block;`
         boat.fishing = false
         randomSplashGenerator()
         display()
         console.log(bag)
         setTimeout(() => {
         karp.style.animation = "fade-out 2s";
-        }, 2000)
-        
+        }, 2000)        
     } 
 }  
 
@@ -235,16 +233,18 @@ function keyUpHandler(e) {
 function Gyrados () {
     this.x = 500
     this.y = 300
-    this.radius = 100
-    this.sW = 100
+    this.dX = 2
+    this.dY = -2
+    this.radius = 60
     this.sH = 100
+    this.sW = 100
     this.frameX = 0
     this.frameY = 0
     this.gameFrame = 0
     this.staggerFrame = 15
     this.draw = function () {
         // ctx.drawImage(gyradosImg, this.x, this.y, 250, 300)
-        drawSprite(gyradosImg, this.sW*this.frameX, this.sW*this.frameY, this.sW, this.sH, this.x, this.y, 200, 200)
+        drawSprite(gyradosImg, this.sW*this.frameX, this.sW*this.frameY, this.sW, this.sH, this.x, this.y, 200,200)
         if (this.gameFrame % this.staggerFrame == 0 ) {
             if (this.frameX < 1) {
                      this.frameX++
@@ -253,9 +253,26 @@ function Gyrados () {
                  }
          }
          this.gameFrame++
+    this.x += this.dX
+    this.y += this.dY
+    // ctx.beginPath()
+    // ctx.arc( this.x, this.y, this.radius, 0, Math.PI*2)
+    // ctx.stroke()
+    // ctx.closePath()
     }
+    this.movementSpeed = function () {
+        if (this.x > canvas.width - 150 || this.x < 0 - 50) {
+        this.dX = -this.dX
+        }
+        if (this.y > canvas.height - 150 || this.y < 0 - 50) {
+            this.dY = -this.dY
+        }
+    }
+
+
     this.update = function () {
         this.draw()
+        this.movementSpeed()
     }
 }
 
