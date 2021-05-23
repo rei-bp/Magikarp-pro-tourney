@@ -103,6 +103,21 @@ function display() {
     if (boat.fishCaught === 5 || displaySortWeight[4] > 0) {
         document.getElementById('fish5').innerText = displaySortWeight[4]
     }
+    if (document.getElementById('fish1').innerText == 'undefined') {
+        document.getElementById('fish1').innerText = ' '
+    }
+    if (document.getElementById('fish2').innerText == 'undefined') {
+        document.getElementById('fish2').innerText = ' '
+    }
+    if (document.getElementById('fish3').innerText == 'undefined') {
+        document.getElementById('fish3').innerText = ' '
+    }
+    if (document.getElementById('fish4').innerText == 'undefined') {
+        document.getElementById('fish4').innerText = ' '
+    }
+    if (document.getElementById('fish5').innerText == 'undefined') {
+        document.getElementById('fish5').innerText = ' '
+    }
 }
 
 let reducer = (a, b) => {
@@ -383,7 +398,7 @@ const animate = setInterval(function() {
     splash.update()
     gyrados.update()
     restart = false
-    displaySortWeight
+    display()
     if (getDistance(boat.x, boat.y, splash.x, splash.y) < boat.boatRadius + splash.splashRadius && space === true) {
         boat.fishing = true
         fishHandler()
